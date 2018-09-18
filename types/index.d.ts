@@ -1,5 +1,5 @@
 /// <reference types="node" />
-declare class RequestHeader {
+export declare class RequestHeader {
     type: string;
     host: string;
     version: string;
@@ -23,4 +23,3 @@ export declare function headerParser(): {
     };
     write: (data: Buffer) => void;
 };
-export {};

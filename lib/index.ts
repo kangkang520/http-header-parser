@@ -1,6 +1,6 @@
 //处理http头
 
-class RequestHeader {
+export class RequestHeader {
 	//其他数据
 	[i: string]: any
 

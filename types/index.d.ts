@@ -1,29 +1,26 @@
 /// <reference types="node" />
-interface IRequestHeader {
+declare class RequestHeader {
     type: string;
     host: string;
     version: string;
-    [i: string]: string;
+    [i: string]: any;
+    constructor(type: string, host: string, version: string);
+    put(key: string, value: string): void;
+    /**
+     * 转换成字符串
+     */
+    toString(): string;
 }
 /**
  * 创建一个请求头转换器
  */
 export declare function headerParser(): {
-    /**
-     * 监听事件
-     * @param type 事件类型
-     * @param cb 回调函数
-     */
-    once<K extends "error" | "end" | "header" | "line">(type: K, cb: {
-        header: (req: IRequestHeader) => void;
-        error: (err: Error) => void;
-        line: (line: string) => void;
-        end: () => void;
-    }[K]): void;
-    /**
-     * 写入数据
-     * @param data 要写入的数据
-     */
-    write(data: Buffer): void;
+    on: {
+        (type: "header", cb: (header: RequestHeader) => void): void;
+        (type: "error", cb: (error: Error) => void): void;
+        (type: "end", cb: () => void): void;
+        (type: "line", cb: (line: string) => void): void;
+    };
+    write: (data: Buffer) => void;
 };
 export {};

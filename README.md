@@ -16,9 +16,10 @@ import { headerParser } from 'http-header-parser'
 //创建转换器
 let parser = headerParser()
 //监听头消息
-parser.once('header', header=>{
+parser.on('header', header=>{
 	//得到请求头
 	console.log(header)
+	console.log(header.toString())	//CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n
 })
 //写入数据
 let buffer = new Buffer('CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n这里的这些数据会被忽略掉')
@@ -39,6 +40,7 @@ bufferList.forEach(buf=>parser.write(buf))
 
 ## 事件
 
+* header 转换完毕，得到头
 * error 转换出错
 * line 获取到一行数据的时候
 * end 转换结束（首行出错时会结束）

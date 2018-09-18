@@ -120,12 +120,12 @@ export function headerParser() {
 				if (gotCRLF) {
 					isEnd = true
 					fire('header', header)
-					return i
+					return i + 1
 				}
 				//得到条目，并转换
 				parseLine(i == 0 ? cache : add2cache(data.slice(start, i - 1)))
 				cache = undefined!
-				if (isEnd) return i
+				if (isEnd) return i + 1
 				//继续处理
 				start = ++i
 				gotCRLF = true

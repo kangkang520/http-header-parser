@@ -1,0 +1,4 @@
+node_modules
+lib/**/*.d.ts
+lib/**/*.js
+package-lock.json

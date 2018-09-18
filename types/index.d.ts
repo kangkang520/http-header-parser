@@ -21,5 +21,5 @@ export declare function headerParser(): {
         (type: "end", cb: () => void): void;
         (type: "line", cb: (line: string) => void): void;
     };
-    write: (data: Buffer) => void;
+    write: (data: Buffer) => number;
 };

@@ -109,8 +109,8 @@ export function headerParser() {
 	 * 写入数据
 	 * @param data 要写入的数据
 	 */
-	function write(data: Buffer) {
-		if (isEnd) return
+	function write(data: Buffer): number {
+		if (isEnd) return 0
 		let start = 0;
 		for (let i = 0; i < data.length; i++) {
 			if (data[i] == 0x0d) continue
@@ -120,12 +120,12 @@ export function headerParser() {
 				if (gotCRLF) {
 					isEnd = true
 					fire('header', header)
-					return
+					return i
 				}
 				//得到条目，并转换
 				parseLine(i == 0 ? cache : add2cache(data.slice(start, i - 1)))
 				cache = undefined!
-				if (isEnd) return
+				if (isEnd) return i
 				//继续处理
 				start = ++i
 				gotCRLF = true
@@ -135,6 +135,7 @@ export function headerParser() {
 			}
 		}
 		cache = add2cache(data.slice(start))
+		return data.length
 	}
 	//返回操作函数
 	return { on, write }

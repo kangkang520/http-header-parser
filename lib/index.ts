@@ -150,25 +150,25 @@ export function headerParser() {
 }
 
 
-let buffer1 = new Buffer([
-	'GET http://www.baidu.com:88/ HTTP/1.1',
-	'User-Agent: Wget/1.18 (darwin16.3.0)',
-	'Accept: */*',
-	'Accept-Encoding: identity',
-	'Host: www.baidu.com:88',
-	'Connection: Keep-Alive',
-	'Proxy-Connection: Keep-Alive'
-].join('\r\n') + '\r\n\r\n')
+// let buffer1 = new Buffer([
+// 	'GET http://www.baidu.com:88/ HTTP/1.1',
+// 	'User-Agent: Wget/1.18 (darwin16.3.0)',
+// 	'Accept: */*',
+// 	'Accept-Encoding: identity',
+// 	'Host: www.baidu.com:88',
+// 	'Connection: Keep-Alive',
+// 	'Proxy-Connection: Keep-Alive'
+// ].join('\r\n') + '\r\n\r\n')
 
-let buffer2 = new Buffer('CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n这里的这些数据会被忽略掉')
+// let buffer2 = new Buffer('CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n这里的这些数据会被忽略掉')
 
-//创建转换器
-let parser = headerParser()
-//监听头消息
-parser.on('header', header => {
-	//得到请求头
-	console.log(header)
-	console.log(header.toString())  //CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n
-})
-//写入数据
-parser.write(buffer1)
+// //创建转换器
+// let parser = headerParser()
+// //监听头消息
+// parser.on('header', header => {
+// 	//得到请求头
+// 	console.log(header)
+// 	console.log(header.toString())  //CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n
+// })
+// //写入数据
+// parser.write(buffer1)

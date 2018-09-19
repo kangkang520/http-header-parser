@@ -1,6 +1,6 @@
 {
 	"name": "http-header-parser",
-	"version": "1.0.7",
+	"version": "1.0.9",
 	"description": "",
 	"main": "lib/index.js",
 	"types": "types/index.d.ts",

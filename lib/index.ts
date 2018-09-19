@@ -1,11 +1,13 @@
 //处理http头
+import url from 'url'
+
 
 export class RequestHeader {
 	//其他数据
 	[i: string]: any
 
 	//构造一个请求头
-	constructor(public type: string, public host: string, public version: string) {
+	constructor(public type: string, public host: string, public version: string, public url: string, public protocol: 'http' | 'https' | '') {
 	}
 
 	//存入数据
@@ -18,7 +20,7 @@ export class RequestHeader {
 	 */
 	public toString() {
 		if (!this.type || !this.host || !this.version) return ''
-		let buffer = [`${this.type} ${this.host} ${this.version}`]
+		let buffer = [`${this.type} ${this.url} ${this.version}`]
 		Object.keys(this).forEach(key => {
 			let val = this[key]
 			if (typeof val !== 'string' || (key == 'type' || key == 'host' || key == 'version')) return
@@ -65,7 +67,13 @@ export function headerParser() {
 				isEnd = true
 				return false
 			}
-			header = new RequestHeader(match[1], match[2], match[3])
+			let urlpath = match[2], host = urlpath, protocol = ''
+			if (/^http(s)?:\/\//.test(urlpath)) {
+				let res = url.parse(urlpath)
+				host = res.host!
+				protocol = (res.protocol!).replace(':', '')
+			}
+			header = new RequestHeader(match[1], host, match[3], urlpath, protocol as any)
 		}
 		//否则转换其他数据
 		else {
@@ -140,3 +148,27 @@ export function headerParser() {
 	//返回操作函数
 	return { on, write }
 }
+
+
+let buffer1 = new Buffer([
+	'GET http://www.baidu.com:88/ HTTP/1.1',
+	'User-Agent: Wget/1.18 (darwin16.3.0)',
+	'Accept: */*',
+	'Accept-Encoding: identity',
+	'Host: www.baidu.com:88',
+	'Connection: Keep-Alive',
+	'Proxy-Connection: Keep-Alive'
+].join('\r\n') + '\r\n\r\n')
+
+let buffer2 = new Buffer('CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n这里的这些数据会被忽略掉')
+
+//创建转换器
+let parser = headerParser()
+//监听头消息
+parser.on('header', header => {
+	//得到请求头
+	console.log(header)
+	console.log(header.toString())  //CONNECT home.netscape.com:443 HTTP/1.0\r\nUser-agent: Mozilla/4.0\r\n\r\n
+})
+//写入数据
+parser.write(buffer1)

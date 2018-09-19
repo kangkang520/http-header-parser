@@ -3,8 +3,10 @@ export declare class RequestHeader {
     type: string;
     host: string;
     version: string;
+    url: string;
+    protocol: 'http' | 'https' | '';
     [i: string]: any;
-    constructor(type: string, host: string, version: string);
+    constructor(type: string, host: string, version: string, url: string, protocol: 'http' | 'https' | '');
     put(key: string, value: string): void;
     /**
      * 转换成字符串

@@ -1,6 +1,6 @@
 {
 	"name": "http-header-parser",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"description": "",
 	"main": "lib/index.js",
 	"types": "types/index.d.ts",
@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "http://git.iemmp.com/yizhi/http-header-parser.git"
+		"url": "http://github.com/kangkang520/http-header-parser.git"
 	},
 	"keywords": [],
 	"author": "",

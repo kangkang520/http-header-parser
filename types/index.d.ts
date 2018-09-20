@@ -1,3 +1,3 @@
-import { parseRequest } from "./request";
-import { parseResponse } from "./responst";
-export { parseRequest, parseResponse };
+import { parseRequest, RequestHeader } from "./request";
+import { parseResponse, ResponseHeader } from "./response";
+export { parseRequest, parseResponse, RequestHeader, ResponseHeader, };

@@ -1,7 +1,7 @@
 import { createReader } from "./reader"
 
 //http相应头
-class ResponseHeader {
+export class ResponseHeader {
 
 	public status: string
 

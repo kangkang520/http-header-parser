@@ -1,7 +1,9 @@
-import { parseRequest } from "./request"
-import { parseResponse } from "./responst"
+import { parseRequest, RequestHeader } from "./request"
+import { parseResponse, ResponseHeader } from "./response"
 
 export {
 	parseRequest,
-	parseResponse
+	parseResponse,
+	RequestHeader,
+	ResponseHeader,
 }
